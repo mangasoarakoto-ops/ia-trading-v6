@@ -3,303 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AXIOM GEMINI PRO</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-dark: #0b1120;
-            --card-bg: #1e293b;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --nav-height: 70px;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Segoe UI', sans-serif;
-            padding-bottom: var(--nav-height);
-            overflow-x: hidden;
-        }
-
-        #login-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-dark); z-index: 2000;
-            display: flex; align-items: center; justify-content: center;
-            flex-direction: column;
-        }
-
-        .glass-card {
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            height: var(--nav-height);
-            background: #111827;
-            border-top: 1px solid #374151;
-            display: flex; justify-content: space-around; align-items: center;
-            z-index: 1000;
-        }
-        .nav-item {
-            color: var(--text-muted);
-            text-align: center;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            background: none; border: none;
-        }
-        .nav-item i { display: block; font-size: 1.4rem; margin-bottom: 4px; }
-        .nav-item.active { color: var(--accent); }
-
-        .scan-radar {
-            width: 100%; height: 4px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            position: absolute; top: 0; left: 0;
-            animation: scan 2s infinite linear;
-            opacity: 0.5;
-        }
-        @keyframes scan { 0% { left: -100%; } 100% { left: 100%; } }
-
-        .custom-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 3000;
-            display: none; align-items: center; justify-content: center;
-        }
-        
-        .text-white-force { color: #fff !important; }
-        .fw-bold { font-weight: 700 !important; }
-        .content-section { display: none; padding: 15px; }
-        .content-section.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    </style>
+    <title>AI Intelligent Mada V4.0 (Predication Mode)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="container text-center">
-        <h1 class="mb-4 text-accent"><i class="fas fa-robot"></i> GEMINI PRO TRADER</h1>
-        <div class="card glass-card p-4 mx-auto" style="max-width: 400px;">
-            <h5 class="mb-3 text-white">Ampidiro ny Token Deriv</h5>
-            <input type="password" id="api-token" class="form-control mb-3 text-center" style="background:#0f172a; color:white; border-color:#334155;" placeholder="Deriv API Token">
-            <button class="btn btn-primary w-100 fw-bold" onclick="loginToServer()">HIDITRA (LOGIN)</button>
-            <small class="text-muted mt-3 d-block">Powered by Gemini AI Node.js</small>
-        </div>
-    </div>
-</div>
-
-<div id="main-app" class="d-none">
-    
-    <div class="container-fluid py-2 border-bottom border-secondary bg-dark sticky-top">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <small class="text-muted d-block">Solde Deriv</small>
-                <span id="balance" class="h4 text-white fw-bold">...</span> <span class="text-success">$</span>
+    <div id="login-page">
+        <div class="login-box">
+            <div class="logo-area">
+                <h1>🤖 AI INTELLIGENT</h1>
+                <p>MADA TRADING V4.0 (Deep Prediction)</p>
             </div>
-            <div class="text-end">
-                <small class="text-muted d-block">Profit/Loss</small>
-                <span id="total-pl" class="h4 fw-bold text-white">0.00</span> <span class="text-muted">$</span>
-            </div>
-        </div>
-        <div class="text-center mt-1">
-            <span class="badge bg-secondary" id="user-email-display">Tsy mifandray</span>
+            
+            <h2>🔐 Deriv API Connection</h2>
+            <p>Ampidiro ny Token mba hiasa ny Bot</p>
+            <input type="text" id="api-token" placeholder="Paste Token Here...">
+            
+            <button onclick="checkUserAndLogin()" class="btn-primary">HIDITRA (CONNECT)</button>
+            
+            <a href="https://wa.me/261323911654?text=Salama%2C%20mila%20fanampiana%20amin'ny%20API%20Token%20aho" target="_blank" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> Mila fanampiana? (WhatsApp)
+            </a>
         </div>
     </div>
 
-    <div id="section-trade" class="content-section active">
-        <div class="card glass-card mb-3 position-relative overflow-hidden">
-            <div class="scan-radar" id="radar-anim" style="display:none;"></div>
-            <div class="card-body text-center py-4">
-                <h6 class="text-muted text-uppercase">Analyse Gemini AI</h6>
-                <h3 id="current-price" class="text-white fw-bold my-2">--.--</h3>
-                <div id="ai-message" class="text-accent fst-italic mt-2">Miantry démarrage...</div>
-                <div class="mt-3">
-                    <span class="badge bg-dark border border-secondary p-2">Model: <span class="text-warning">GEMINI FLASH</span></span>
+    <div id="payment-lock" class="modal hidden">
+        <div class="modal-content">
+            <h3>⚠️ Tapitra ny andrana (2 Jours)</h3>
+            <p>Mila manao abonnement ianao vao afaka manohy.</p>
+            <div class="price-tag">10.000 Ar / Mois</div>
+            
+            <p><strong>Alefaso amin'ny iray amin'ireto ny vola:</strong></p>
+            <ul class="payment-numbers">
+                <li>032 39 116 54 (RAVELOMANANTSOA U.)</li>
+                <li>038 22 668 76 (Marie Christiana)</li>
+            </ul>
+
+            <label>Ampidiro ny Reference:</label>
+            <input type="text" id="payment-ref" placeholder="Ex: Ref 12345">
+            <button onclick="submitPayment()" class="btn-primary">HAMAFIZY (VERIFY)</button>
+        </div>
+    </div>
+
+    <div id="win-modal" class="modal hidden">
+        <div class="modal-content win-content">
+            <i class="fas fa-trophy win-icon"></i>
+            <h3>OBJECTIF ATTEINT !</h3>
+            <p id="win-message"></p>
+            <button onclick="closeWinModal()" class="btn-primary">OK - Ekeo ny tombony</button>
+        </div>
+    </div>
+
+    <div id="main-app" class="hidden">
+        
+        <header>
+            <div class="logo">🤖 AI MADA V4</div>
+            <div class="balance-info">
+                <div class="solde-label">Solde:</div>
+                <div id="balance-display" class="solde-value">Loading...</div>
+            </div>
+        </header>
+
+        <div class="content-container">
+            
+            <div id="section-trading" class="tab-content active">
+                
+                <div class="status-bar">
+                    <div class="status-left">
+                        <span id="ai-status">😴 AI: Matory</span>
+                        <div id="current-strategy-badge" class="strat-badge">Aucune</div>
+                    </div>
+                </div>
+
+                <div class="chart-box">
+                    <canvas id="tradingChart"></canvas>
+                    <div id="scan-line" class="hidden"></div>
+                    <div id="decision-overlay" class="hidden">ANALYZING...</div>
+                </div>
+
+                <div class="control-panel">
+                    <button id="start-btn" onclick="startBot()" class="btn-start">
+                        <i class="fas fa-play"></i> START AI
+                    </button>
+                    <button id="stop-btn" onclick="stopBot()" class="btn-stop" disabled>
+                        <i class="fas fa-stop"></i> STOP
+                    </button>
+                </div>
+
+                <div class="logs-container">
+                    <div class="logs-header">📋 AI Prediction Logs</div>
+                    <ul id="log-list"></ul>
                 </div>
             </div>
+
+            <div id="section-history" class="tab-content">
+                <h3>📜 Transactions</h3>
+                <div class="history-stats">
+                    <span>Total P/L: <b id="total-pl-display">0.00</b> $</span>
+                </div>
+                <ul id="history-list"></ul>
+            </div>
+
+            <div id="section-settings" class="tab-content">
+                <h3>⚙️ Configuration (FIXED)</h3>
+                <p class="note">Natao Fixe ny reglages rehetra.</p>
+                
+                <div class="input-group">
+                    <label>Mise de base (Fixed)</label>
+                    <input type="text" value="0.35 $" disabled style="opacity: 0.7;">
+                </div>
+                <div class="input-group">
+                    <label>Target Profit (Fixed)</label>
+                    <input type="text" value="0.5 $" disabled style="opacity: 0.7;">
+                </div>
+                <div class="input-group">
+                    <label>Stop Loss (Fixed)</label>
+                    <input type="text" value="2.6 $" disabled style="opacity: 0.7;">
+                </div>
+                <p class="note">⚠️ Ny AI dia mampitombo ny mise <strong>x1.4</strong> raha misy fatiantoka mba hamerenana ny vola.</p>
+            </div>
+
         </div>
 
-        <div class="card glass-card mb-3">
-            <div class="card-body p-2">
-                <canvas id="tradeChart" height="150"></canvas>
-            </div>
-        </div>
-
-        <div class="row g-2">
-            <div class="col-6">
-                <button id="btn-start" class="btn btn-success w-100 py-3 fw-bold" onclick="sendCommand('start')">
-                    <i class="fas fa-play me-2"></i> START AI
-                </button>
-            </div>
-            <div class="col-6">
-                <button id="btn-stop" class="btn btn-danger w-100 py-3 fw-bold" disabled onclick="sendCommand('stop')">
-                    <i class="fas fa-stop me-2"></i> STOP AI
-                </button>
-            </div>
-        </div>
+        <nav class="bottom-nav">
+            <button onclick="switchTab('section-trading')" class="active">
+                <i class="fas fa-robot"></i> Trading
+            </button>
+            <button onclick="switchTab('section-history')">
+                <i class="fas fa-history"></i> Historique
+            </button>
+            <button onclick="switchTab('section-settings')">
+                <i class="fas fa-sliders-h"></i> Paramètres
+            </button>
+        </nav>
     </div>
 
-    <div id="section-logs" class="content-section">
-        <h5 class="text-white mb-3"><i class="fas fa-terminal text-accent"></i> Logs Serveur</h5>
-        <div id="log-container" class="bg-black p-3 rounded border border-secondary" style="height: 60vh; overflow-y: auto; font-family: monospace; font-size: 0.9rem;">
-        </div>
-    </div>
+    <audio id="sound-win" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg"></audio>
+    <audio id="sound-loss" src="https://actions.google.com/sounds/v1/cartoon/thud_dive.ogg"></audio>
+    <audio id="sound-ping" src="https://actions.google.com/sounds/v1/science_fiction/scifi_laser.ogg"></audio>
 
-    <div id="section-history" class="content-section">
-        <h5 class="text-white mb-3"><i class="fas fa-history text-accent"></i> Tantaran'ny Varotra</h5>
-        <div class="card glass-card">
-            <div class="card-body p-0">
-                <table class="table table-dark table-striped mb-0">
-                    <thead>
-                        <tr>
-                            <th>Ora</th>
-                            <th>Résultat</th>
-                            <th class="text-end">Profit</th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-body">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('trade', this)">
-            <i class="fas fa-chart-line"></i> Trading
-        </button>
-        <button class="nav-item" onclick="switchTab('logs', this)">
-            <i class="fas fa-terminal"></i> Logs
-        </button>
-        <button class="nav-item" onclick="switchTab('history', this)">
-            <i class="fas fa-list"></i> Historique
-        </button>
-    </nav>
-
-</div>
-
-<audio id="sound-win" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
-<audio id="sound-loss" src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3"></audio>
-
-<script>
-    const socket = io(); // Connection au serveur Node.js
-
-    // --- UI HELPERS ---
-    window.switchTab = (tabId, btn) => {
-        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
-        document.getElementById('section-' + tabId).classList.add('active');
-        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-        btn.classList.add('active');
-    };
-
-    // --- CHART SETUP ---
-    const ctx = document.getElementById('tradeChart').getContext('2d');
-    const chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: Array(30).fill(''),
-            datasets: [{
-                label: 'Prix',
-                data: Array(30).fill(null),
-                borderColor: '#38bdf8',
-                borderWidth: 2,
-                pointRadius: 0,
-                tension: 0.3,
-                fill: true,
-                backgroundColor: 'rgba(56, 189, 248, 0.1)'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { x: { display: false }, y: { display: false } },
-            animation: { duration: 0 }
-        }
-    });
-
-    // --- LOGIQUE SOCKET ---
-
-    window.loginToServer = () => {
-        const token = document.getElementById('api-token').value;
-        if(!token) return alert("Ampidiro ny Token");
-        socket.emit('login', token);
-        document.querySelector('#login-screen button').innerHTML = "Mifandray...";
-    };
-
-    window.sendCommand = (cmd) => {
-        if(cmd === 'start') {
-            socket.emit('start_bot');
-            document.getElementById('btn-start').disabled = true;
-            document.getElementById('btn-stop').disabled = false;
-            document.getElementById('radar-anim').style.display = 'block';
-        } else {
-            socket.emit('stop_bot');
-            document.getElementById('btn-start').disabled = false;
-            document.getElementById('btn-stop').disabled = true;
-            document.getElementById('radar-anim').style.display = 'none';
-        }
-    };
-
-    // Réception des événements du serveur
-    socket.on('auth_success', (data) => {
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('main-app').classList.remove('d-none');
-        document.getElementById('user-email-display').innerText = data.email;
-        document.getElementById('balance').innerText = data.balance;
-    });
-
-    socket.on('tick_update', (price) => {
-        document.getElementById('current-price').innerText = price;
-        chart.data.datasets[0].data.shift();
-        chart.data.datasets[0].data.push(price);
-        chart.update();
-    });
-
-    socket.on('log_message', (data) => {
-        const div = document.createElement('div');
-        div.className = `mb-1 border-bottom border-dark pb-1 ${data.color}`;
-        div.innerHTML = `<span class="text-muted small">[${data.time}]</span> ${data.msg}`;
-        const container = document.getElementById('log-container');
-        container.prepend(div);
-        
-        // Mampiseho ny message farany eo @ ecran accueil koa
-        document.getElementById('ai-message').innerText = data.msg;
-        document.getElementById('ai-message').className = `fst-italic mt-2 ${data.color}`;
-    });
-
-    socket.on('trade_result', (data) => {
-        document.getElementById('balance').innerText = data.balance;
-        
-        const elPL = document.getElementById('total-pl');
-        elPL.innerText = data.totalPL.toFixed(2);
-        elPL.className = data.totalPL >= 0 ? "h4 fw-bold text-success" : "h4 fw-bold text-danger";
-
-        // Historique
-        const isWin = data.profit > 0;
-        const tbody = document.getElementById('history-body');
-        const row = `<tr>
-            <td>${new Date().toLocaleTimeString()}</td>
-            <td><span class="badge ${isWin ? 'bg-success' : 'bg-danger'}">${isWin ? 'WIN' : 'LOSS'}</span></td>
-            <td class="text-end ${isWin ? 'text-success' : 'text-danger'}">${data.profit > 0 ? '+' : ''}${data.profit} $</td>
-        </tr>`;
-        tbody.innerHTML = row + tbody.innerHTML;
-
-        // Son
-        if(isWin) document.getElementById('sound-win').play();
-        else document.getElementById('sound-loss').play();
-    });
-
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
